@@ -32,7 +32,11 @@ class DaakIndicator(appindicator.Indicator):
 
 		self.set_menu(self.menu)
 		
-
+	def addSeparator(self):
+		separator = gtk.SeparatorMenuItem()
+		separator.show()
+		self.menu.append(separator)
+		
 	def refreshMenu(self, subjectList, fromList):
 		# Remove the existing menu items
 		for i in self.menu.get_children():
@@ -50,14 +54,15 @@ class DaakIndicator(appindicator.Indicator):
 			subject = unicode(decode_header(subjectList[i])[0][0])
 			item = gtk.MenuItem('%s\n\t%s' % (subject, fromList[i]))
 			item.show()
+			
+			submenu = gtk.Menu()
+			subitem = gtk.MenuItem('Delete')
+			subitem.show()
+			submenu.append(subitem)
+			
+			item.set_submenu(submenu)
 			self.menu.prepend(item)
 		
-		separator = gtk.SeparatorMenuItem()
-		separator.show()
-		self.menu.append(separator)
-			
+		self.addSeparator()	
 		self.addPermanentMenuItems()
-			
-		
-			
-		
+		self.addSeparator()
