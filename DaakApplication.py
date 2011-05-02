@@ -14,7 +14,8 @@ class DaakApplication:
 		self.indicator.initWidgets()
 	
 		self.gmailClient = pygmail()
-		self.gmailClient.login('login', 'pass')
+		login, password = self.getLogin()
+		self.gmailClient.login(login, password)
 		
 		self.prefsWindow = DaakPrefsWindow()
 		self.prefsWindow.initWidgets()
@@ -40,6 +41,13 @@ class DaakApplication:
 		
 	#~ def timeNow(self, widget):
 		#~ gobject.timeout_add(5000, self.checkNow)
+	
+	def getLogin(self):
+		inFile = open('.daakrc')
+		login = inFile.readline().strip()
+		password = inFile.readline().strip()
+		print login, password
+		return (login, password)
 	
 	def main(self):
 		daakKeyring = Keyring('daak', 'gmail.com', 'imap')
