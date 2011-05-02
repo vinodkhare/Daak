@@ -1,3 +1,5 @@
+from email.header import decode_header
+
 import appindicator
 import gtk
 
@@ -29,7 +31,8 @@ class DaakIndicator(appindicator.Indicator):
 		self.menu.append(self.quitMenuItem)
 
 		self.set_menu(self.menu)
-	
+		
+
 	def refreshMenu(self, subjectList, fromList):
 		# Remove the existing menu items
 		for i in self.menu.get_children():
@@ -44,7 +47,8 @@ class DaakIndicator(appindicator.Indicator):
 			self.menu.prepend(item)
 			
 		for i in range(nUnread):
-			item = gtk.MenuItem('%s\n\t%s' % (subjectList[i], fromList[i]))
+			subject = unicode(decode_header(subjectList[i])[0][0])
+			item = gtk.MenuItem('%s\n\t%s' % (subject, fromList[i]))
 			item.show()
 			self.menu.prepend(item)
 		
