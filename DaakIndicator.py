@@ -52,15 +52,19 @@ class DaakIndicator(appindicator.Indicator):
 			
 		for i in range(nUnread):
 			subject = unicode(decode_header(subjectList[i])[0][0])
-			item = gtk.MenuItem('%s\n\t%s' % (subject, fromList[i]))
+			# item = gtk.MenuItem('%s\n\t%s' % (subject, fromList[i]))
+			item = gtk.MenuItem()
 			item.show()
 			
-			submenu = gtk.Menu()
-			subitem = gtk.MenuItem('Delete')
-			subitem.show()
-			submenu.append(subitem)
-			
-			item.set_submenu(submenu)
+			button = gtk.Button('Delete')
+			button.show()
+			item.add(button)
+			#~ submenu = gtk.Menu()
+			#~ subitem = gtk.MenuItem('Delete')
+			#~ subitem.show()
+			#~ submenu.append(subitem)
+			#~ 
+			#~ item.set_submenu(submenu)
 			self.menu.prepend(item)
 		
 		self.addSeparator()	
