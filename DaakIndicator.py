@@ -3,6 +3,8 @@ from email.header import decode_header
 import appindicator
 import gtk
 
+from DaakEmailWidget import *
+
 class DaakIndicator(appindicator.Indicator):
 	def initWidgets(self):
 		self.set_status(appindicator.STATUS_ACTIVE)
@@ -52,8 +54,13 @@ class DaakIndicator(appindicator.Indicator):
 			
 		for i in range(nUnread):
 			subject = unicode(decode_header(subjectList[i])[0][0])
-			item = gtk.MenuItem('%s\n\t%s' % (subject, fromList[i]))
+			sender = fromList[i]
+			# item = gtk.MenuItem('%s\n\t%s' % (subject, fromList[i]))
+			item = gtk.MenuItem()
 			item.show()
+			emailWidget = DaakEmailWidget(subject, sender)
+			emailWidget.show()
+			item.add(emailWidget)
 			self.menu.prepend(item)
 		
 		self.addSeparator()	
