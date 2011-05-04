@@ -31,13 +31,14 @@ class DaakApplication:
 		gobject.timeout_add(INTERVAL, self.checkNow)
 	
 	def checkNow(self, widget = None):
-		print "Checking now", datetime.now()
-		
 		nUnread = self.gmailClient.getUnreadCount()
 		self.indicator.set_label(str(nUnread))
 		
 		subjectList = self.gmailClient.getUnreadHeaderField('subject')
 		fromList = self.gmailClient.getUnreadHeaderField('from')
+		
+		print "Checking now", datetime.now(), type(nUnread)
+		
 		self.indicator.refreshMenu(subjectList, fromList)
 		return True
 		
