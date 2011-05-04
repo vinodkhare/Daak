@@ -58,4 +58,4 @@ class DaakIndicator(appindicator.Indicator):
 		
 		self.addSeparator()	
 		self.addPermanentMenuItems()
-		self.addSeparator()
+		self.menu.show()
